@@ -3,11 +3,11 @@ session_start();
 
 // Conexión a la base de datos
 $servername = "localhost";
-$username = "admin";
-$password = "admin";
-$dbname = "MotorClick_DB";
+$username = "jorge";
+$password = "KXiZ4xzfMclSLKv";
+$dbname = "jorge";
 
-$conn = new mysqli($servername, $username, $password, $dbname ,"3307");
+$conn = mysqli_connect("localhost", $username, $password, $dbname);
 if ($conn->connect_error) {
     die("Conexión fallida: " . $conn->connect_error);
 }
@@ -70,55 +70,98 @@ if ($stmt) {
 </head>
 
 <body>
-    <br><br><br><br><br><br>
+<style>
+/* Add these new styles */
+.logo {
+    display: flex;
+    align-items: center;
+    height: 0%;
+}
+.logo img{
+    border-radius:50%;
+}
+ /* Aplica el margen izquierdo solo en pantallas medianas y superiores */
+ .with-margin {
+      margin-left: 30px;
+  }
+  /* En pantallas pequeñas, se elimina el margen */
+  @media (max-width: 768px) {
+      .with-margin {
+          margin-left: 0 !important;
+      }
+  }
+  /* Aplica margen superior de 15px en pantallas pequeñas para el botón eliminar */
+  @media (max-width: 768px) {
+      .btn-eliminar {
+          margin-top: 5px;
+      }
+  }
+</style>
     <header>
-        <div class="container">
+    <div class="container">
             <nav class="nav">
                 <div class="menu-toggle">
                     <i class="fas fa-bars"></i>
                     <i class="fas fa-times"></i>
                 </div>
-                <a href="#" class="logo">LOGO</a>
+                <a href="home.php" class="logo">
+  <img src="images/logo.png" alt="MotorClick" height="50">
+</a>
                 <ul class="nav-list">
                     <li class="nav-item">
-                        <a href="home.php" class="nav-link active">Inicio</a>
+                        <a href="home.php" class="nav-link ">Inicio</a>
                     </li>
                     <li class="nav-item">
-                        <a href="servicios.php" class="nav-link ">Servicios</a>
+                        <a href="servicios.php" class="nav-link">Servicios</a>
                     </li>
                     <li class="nav-item">
-                        <a href="reservas.php" class="nav-link ">Reservas</a>
+                        <a href="reservas.php" class="nav-link">Reservas</a>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="nav-link ">Contacto</a>
+                        <a href="contacto.php" class="nav-link ">Contacto</a>
                     </li>
-                    <li class="nav-item">
-                        <a href="registro.php" class="nav-link">Registrarme</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="iniciar_sesion.php" class="nav-link">Iniciar Sesión</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="admin_reservas.php" class="nav-link">Administrar Reservas</a>
-                    </li>
+                    <?php if (isset($_SESSION['usuario']) && $_SESSION['usuario']['tipo'] === 'admin'): ?>
+                        <li class="nav-item">
+                            <a href="admin_reservas.php" class="nav-link active">Administrar Reservas</a>
+                        </li>
+                    <?php endif; ?>
+                    <?php if (!isset($_SESSION['usuario'])): ?>
+                        <li class="nav-item">
+                            <a href="registro.php" class="nav-link">Registrarme</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="iniciar_sesion.php" class="nav-link active">Iniciar Sesión</a>
+                        </li>
+                    <?php endif; ?>
+                    <?php if (isset($_SESSION['usuario'])): ?>
+                        <li class="nav-item">
+                            <a href="perfil.php" class="nav-link">Perfil</a>
+                        </li>
+                    <?php endif; ?>
                 </ul>
             </nav>
         </div>
     </header>
 
+    <div class="hero2">
     <section class="container mt-5">
-        <h1 class="text-center">Administración de Reservas</h1>
+        <style>
+            .form-label h1{
+                color: #fff !important;
+            }
+        </style>
+        <h1 class="text-center text-white">Administración de Reservas</h1>
         <form method="GET" action="" class="my-4">
     <div class="row g-3 align-items-end">
+    <div class="col-md-5 with-margin">
+    <label for="fecha" class="form-label text-white">Filtrar por Fecha:</label>
+    <input type="date" name="fecha" id="fecha" class="form-control" value="<?php echo htmlspecialchars($fechaBuscada); ?>">
+</div>
         <div class="col-md-5">
-            <label for="fecha" class="form-label">Filtrar por Fecha:</label>
-            <input type="date" name="fecha" id="fecha" class="form-control" value="<?php echo htmlspecialchars($fechaBuscada); ?>">
-        </div>
-        <div class="col-md-5">
-            <label for="localizador" class="form-label">Filtrar por Localizador:</label>
+            <label for="localizador" class="form-label text-white">Filtrar por Localizador:</label>
             <input type="text" name="localizador" id="localizador" class="form-control" value="<?php echo htmlspecialchars($localizadorBuscado); ?>">
         </div>
-        <div class="col-md-2">
+        <div class="col-md-12">
             <button type="submit" class="btn btn-primary w-100">Buscar</button>
         </div>
     </div>
@@ -147,14 +190,15 @@ if ($stmt) {
                         <td><?php echo $row['motivo']; ?></td>
                         <td><?php echo $row['localizador']; ?></td>
                         <td>
-                            <a href="eliminar_reserva.php?id=<?php echo $row['id']; ?>" class="btn btn-danger btn-sm"
-                                onclick="return confirm('¿Está seguro de eliminar esta reserva?');">Eliminar</a>
-                        </td>
+    <a href="modificar_reserva.php?id=<?php echo $row['id']; ?>" class="btn btn-warning btn-sm">Modificar</a>
+    <a href="eliminar_reserva.php?id=<?php echo $row['id']; ?>" class="btn btn-danger btn-sm btn-eliminar" onclick="return confirm('¿Está seguro de eliminar esta reserva?');" style="margin-left:5px;">Eliminar</a>
+    </td>
                     </tr>
                 <?php endwhile; ?>
             </tbody>
         </table>
     </section>
+    </div>
 
     <footer>
         <div class="container">

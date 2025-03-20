@@ -1,19 +1,24 @@
 <?php
-$conexion = mysqli_connect("localhost", "admin", "admin", "MotorClick_DB","3307");
+session_start();
+$conexion = mysqli_connect("localhost", "jorge", "KXiZ4xzfMclSLKv", "jorge");
 if (isset($_POST['usuario_id'])) {
-    $usuario_id = $_POST['usuario_id']; // Obtener el ID del usuario seleccionado
+    // Si se ha enviado un usuario_id por POST, lo usamos
+    $usuario_id = $_POST['usuario_id'];
+} else {
+    // Si no se ha enviado un usuario_id, tomamos el ID del usuario en sesión
+    $usuario_id = $_SESSION['usuario']['id'];
+}
 
-    // Consulta para obtener los datos del usuario seleccionado
-    $query = "SELECT * FROM usuarios WHERE id = $usuario_id"; 
-    $result = mysqli_query($conexion, $query);
-    
-    if ($result && mysqli_num_rows($result) > 0) {
-        // Si se encuentra el usuario, obtenemos los datos
-        $usuario = mysqli_fetch_assoc($result);
-    } else {
-        echo "Usuario no encontrado.";
-        exit;
-    }
+// Consulta para obtener los datos del usuario seleccionado
+$query = "SELECT * FROM usuarios WHERE id = $usuario_id"; 
+$result = mysqli_query($conexion, $query);
+
+if ($result && mysqli_num_rows($result) > 0) {
+    // Si se encuentra el usuario, obtenemos los datos
+    $usuario = mysqli_fetch_assoc($result);
+} else {
+    echo "Usuario no encontrado.";
+    exit;
 }
 ?>
 <!DOCTYPE html>
@@ -39,38 +44,61 @@ if (isset($_POST['usuario_id'])) {
 </head>
 <body>
 
-    <header>
+<header>
+    <style>
+        .logo {
+    display: flex;
+    align-items: center;
+    height: 0%;
+}
+.logo img{
+    border-radius:50%;
+}
+    </style>
         <div class="container">
             <nav class="nav">
                 <div class="menu-toggle">
                     <i class="fas fa-bars"></i>
                     <i class="fas fa-times"></i>
                 </div>
-                <a href="#" class="logo">LOGO</a>
+                <a href="home.php" class="logo">
+  <img src="images/logo.png" alt="MotorClick" height="50">
+</a>
                 <ul class="nav-list">
                     <li class="nav-item">
-                        <a href="home.php" class="nav-link active">Inicio</a>
+                        <a href="home.php" class="nav-link ">Inicio</a>
                     </li>
                     <li class="nav-item">
-                        <a href="servicios.php" class="nav-link ">Servicios</a>
+                        <a href="servicios.php" class="nav-link">Servicios</a>
                     </li>
                     <li class="nav-item">
-                        <a href="reservas.php" class="nav-link ">Reservas</a>
+                        <a href="reservas.php" class="nav-link">Reservas</a>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="nav-link ">Contacto</a>
+                        <a href="contacto.php" class="nav-link">Contacto</a>
                     </li>
-                    <li class="nav-item">
-                        <a href="registro.php" class="nav-link">Registrarme</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="iniciar_sesion.php" class="nav-link">Iniciar Sesión</a>
-                    </li>
+                    <?php if (isset($_SESSION['usuario']) && $_SESSION['usuario']['tipo'] === 'admin'): ?>
+                        <li class="nav-item">
+                            <a href="admin_reservas.php" class="nav-link">Administrar Reservas</a>
+                        </li>
+                    <?php endif; ?>
+                    <?php if (!isset($_SESSION['usuario'])): ?>
+                        <li class="nav-item">
+                            <a href="registro.php" class="nav-link">Registrarme</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="iniciar_sesion.php" class="nav-link">Iniciar Sesión</a>
+                        </li>
+                    <?php endif; ?>
+                    <?php if (isset($_SESSION['usuario'])): ?>
+                        <li class="nav-item">
+                            <a href="perfil.php" class="nav-link">Perfil</a>
+                        </li>
+                    <?php endif; ?>
                 </ul>
             </nav>
         </div>
     </header>
-
 
     <?php if (isset($usuario)): ?>
     <section class="hero" id="hero">
@@ -78,7 +106,7 @@ if (isset($_POST['usuario_id'])) {
             <h2 class="h2-sub"><span class="fil">Modificar Datos</span></h2>
             <div class="form-wrapper">
                 <div class="form-container">
-                    <form action="index.php" method="POST">
+                    <form id="formulario_registro" action="index.php" method="POST">
                         <input type="hidden" name="usuario_id" value="<?php echo $usuario['id']; ?>">
 
                         <label for="nombre">Nombre:</label>
@@ -90,8 +118,8 @@ if (isset($_POST['usuario_id'])) {
                         <label for="usuario">Nombre de Usuario:</label>
                         <input type="text" id="usuario" name="usuario" value="<?php echo htmlspecialchars($usuario['usuario']); ?>" required>
 
-                        <label for="password">Contraseña:</label>
-                        <input type="password" id="password" name="password" value="<?php echo htmlspecialchars($usuario['password']); ?>" required>
+                        <label for="password">Nueva Contraseña (opcional):</label>
+                        <input type="password" id="password" name="password" placeholder="Ingrese nueva contraseña">
 
                         <label for="email">Correo Electrónico:</label>
                         <input type="email" id="email" name="email" value="<?php echo htmlspecialchars($usuario['email']); ?>" required>
@@ -164,7 +192,7 @@ if (isset($_POST['usuario_id'])) {
 -->
 
    
-    <footer>
+<footer>
         <div class="container">
             <div class="footer-content">
 
@@ -173,11 +201,9 @@ if (isset($_POST['usuario_id'])) {
                     <div class="circle">
                         <i class="fas fa-circle"></i>
                     </div>
-                    <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. 
-                        Praesentium odio labore dolorum veritatis, culpa cumque eum 
-                        reprehenderit iure, commodi, repellat eaque possimus obcaecati 
-                        assumenda exercitationem? 
-                        Aperiam provident accusantium laboriosam. Necessitatibus!</p>
+                    <p>Bienvenido a MotorClick. Somos tu taller de mecánica de confianza, donde puedes reservar citas en línea 
+                        y disfrutar de servicios integrales para el cuidado de tu vehículo. 
+                        ¡Calidad y atención personalizada para que siempre estés en marcha!</p>
                 </div>
                 <div class="footer-div">
                     <div class="social-media">
@@ -203,9 +229,7 @@ if (isset($_POST['usuario_id'])) {
                     <div>
                         <h4>Inscribete</h4>
                         <form action="" class="news-form">
-                            <input type="text" class="news-input"
-                            placeholder="Escribe tu email"
-                            >
+                            <input type="text" class="news-input" placeholder="Escribe tu email">
                             <button class="news-btn" type="submit">
                                 <i class="fas fa-envelope"></i>
                             </button>
@@ -266,7 +290,7 @@ if (isset($_POST['usuario_id'])) {
         <span class="visually-hidden">Next</span>
     </button>
 </div>
-<script src="script.js"></script>
+<script src="script_modif.js"></script>
 </body>
 </html>
 

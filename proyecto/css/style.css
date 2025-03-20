@@ -1,4 +1,215 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,200;0,300;0,400;0,500;0,600;1,200;1,300;1,400&display=swap');
+.search-bar {
+    position: relative;
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.search-bar input {
+    width: 100%;
+    padding: 10px;
+    font-size: 1.6rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.suggestions-box {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-top: none;
+    border-radius: 0 0 4px 4px;
+    z-index: 1000;
+    display: none;
+}
+
+.suggestions-box ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.suggestions-box li {
+    padding: 10px;
+    cursor: pointer;
+}
+
+.suggestions-box li:hover {
+    background-color: #f2f2f2;
+}
+/*/---------------------------RESPONSIVE RESERVAS---------------/*/
+.filtro-container {
+    width: 80%;
+    margin: -10px auto 30px;
+    padding: 0 15px;
+
+  }
+  #calendar {
+background-color: #fff;
+border: 1px solid #ccc;
+border-radius: 4px;
+box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+padding: 15px;
+margin: 20px auto;
+max-width: 95%;
+}
+
+/* Ajuste responsivo para pantallas pequeñas */
+@media (max-width: 768px) {
+#calendar {
+  padding: 10px;
+  margin: 10px auto;
+}
+} 
+.reservarForm {
+    width: 80%;
+    margin: -10px auto 30px;
+    padding: 0 15px;
+
+  }
+/*/---------------------------FIN RESPONSIVE RESERVAS---------------*/
+/* Estilos para el contenedor principal */
+/* Estilos para el contenedor principal */
+.contenedor-principal {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.25rem; /* 20px -> 1.25rem */
+    padding: 1.25rem; /* 20px -> 1.25rem */
+    justify-content: center;
+    align-items: stretch;
+}
+.perfil, .modificar-perfiles {
+    margin-top: 30px;
+    flex: 1;
+    max-width: 100%; /* Ocupa todo el ancho disponible */
+    background-color: #ffffff;
+    border-radius: 0.75rem; /* 12px -> 0.75rem */
+    box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.15); /* 8px 24px -> 0.5rem 1.5rem */
+    padding: 1.25rem; /* 20px -> 1.25rem */
+    margin-bottom: 50px;
+}
+
+.modificar-perfiles {
+    background-color: transparent;
+    border-radius: 0;
+    box-shadow: none;
+    padding: 0.9375rem; /* 15px -> 0.9375rem */
+}
+
+#contenedor-secundario {
+    width: 100%; /* Ocupa todo el ancho disponible */
+    margin-top: 1.25rem; /* Espacio entre el contenedor principal y la tabla */
+}
+
+.table-container {
+    width: 100%; /* Ocupa todo el ancho disponible */
+    background-color: #ffffff;
+    border-radius: 0.75rem; /* 12px -> 0.75rem */
+    box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.15); /* 8px 24px -> 0.5rem 1.5rem */
+    padding: 1.25rem; /* 20px -> 1.25rem */
+    overflow-x: auto; /* Permite el desplazamiento horizontal */
+}
+
+#tabla-reservas {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 1.125rem; /* 18px -> 1.125rem */
+}
+
+#tabla-reservas th, #tabla-reservas td {
+    padding: 1rem; /* 16px -> 1rem */
+    text-align: left;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+#tabla-reservas th {
+    background-color: #121212;
+    color: #3bcc75;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 1.25rem; /* 20px -> 1.25rem */
+}
+
+#tabla-reservas tbody tr:hover {
+    background-color: #f0f0f0;
+}
+
+/* Media queries para pantallas pequeñas */
+@media (max-width: 768px) {
+    .contenedor-principal {
+        flex-direction: column; /* Apila los elementos verticalmente */
+        padding: 0.625rem; /* 10px -> 0.625rem */
+        gap: 0.625rem; /* 10px -> 0.625rem */
+    }
+
+    .perfil, .modificar-perfiles {
+        width: 100%; /* Ocupa todo el ancho disponible */
+        max-width: 100%; /* Elimina el límite de ancho */
+        padding: 0.625rem; /* 10px -> 0.625rem */
+    }
+
+    #contenedor-secundario {
+        margin-top: 0.625rem; /* Reduce el espacio entre contenedores */
+    }
+
+    #tabla-reservas {
+        font-size: 1rem; /* 16px -> 1rem */
+    }
+
+    #tabla-reservas th, #tabla-reservas td {
+        padding: 0.75rem; /* 12px -> 0.75rem */
+    }
+}
+
+@media (max-width: 480px) {
+    .contenedor-principal {
+        padding: 0.3125rem; /* 5px -> 0.3125rem */
+        gap: 0.3125rem; /* 5px -> 0.3125rem */
+    }
+
+    .perfil, .modificar-perfiles {
+        padding: 0.3125rem; /* 5px -> 0.3125rem */
+    }
+
+    #contenedor-secundario {
+        margin-top: 0.3125rem; /* Reduce el espacio entre contenedores */
+    }
+
+    #tabla-reservas {
+        font-size: 0.875rem; /* 14px -> 0.875rem */
+    }
+
+    #tabla-reservas th, #tabla-reservas td {
+        padding: 0.5rem; /* 8px -> 0.5rem */
+    }
+}
+
+@media (max-width: 320px) {
+    .contenedor-principal {
+        padding: 0.125rem; /* 2px -> 0.125rem */
+        gap: 0.125rem; /* 2px -> 0.125rem */
+    }
+
+    .perfil, .modificar-perfiles {
+        padding: 0.125rem; /* 2px -> 0.125rem */
+    }
+
+    #contenedor-secundario {
+        margin-top: 0.125rem; /* Reduce el espacio entre contenedores */
+    }
+
+    #tabla-reservas {
+        font-size: 0.75rem; /* 12px -> 0.75rem */
+    }
+
+    #tabla-reservas th, #tabla-reservas td {
+        padding: 0.25rem; /* 4px -> 0.25rem */
+    }
+}
 #usuario_select{
     font-size: 2rem !important;
 }
@@ -19,18 +230,6 @@
     margin-bottom: 50px; /* Espacio adicional debajo del formulario */
 }
 
-/* General styling for the section */
-.hero {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    padding: 50px 20px;
-    background-color: #f5f5f5;
-    height: 100%; /* Se ajusta para ocupar solo lo necesario */
-}
-
-/* Container to center the form */
 .container {
     width: 100%;
     display: flex;
@@ -172,7 +371,7 @@ header {
     position: absolute;
     top: 0;
     left: 0;
-    z-index: 1;
+    z-index: 11000;
     background-image: linear-gradient(to bottom, rgba(0,0,0,.5), transparent);
 }
 .nav {
@@ -250,6 +449,20 @@ header {
     font-size: 2rem;
     font-weight: 600;
 }
+/* Ocultar el logo entre 899px y 995px */
+@media (min-width: 899px) and (max-width: 995px) {
+    .logo {
+        opacity: 0; /* Oculta el logo */
+        pointer-events: none; /* Desactiva interacciones */
+    }
+}
+/* Mostrar el logo en pantallas más grandes que 995px y más pequeñas que 899px */
+@media (max-width: 899px), (min-width: 995px) {
+    .logo {
+        opacity: 1; /* Muestra el logo */
+        pointer-events: auto; /* Activa interacciones */
+    }
+}
 
 .nav-item {
     border-bottom: 2px solid rgba(255, 255, 255, .3);
@@ -259,9 +472,10 @@ header {
     display: block;
     color: #fff;
     text-transform: uppercase;
-    font-size: 1.6rem;
+    font-size: clamp(0.8rem, 2vw, 1.2rem);
     letter-spacing: 2px;
     margin-right: -2px;
+    white-space: nowrap;
 }
 
 .nav-link:hover {
@@ -274,18 +488,98 @@ header {
 /* General styling for the section */
 .hero {
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    padding: 50px 20px;
+    flex-direction: column; /* Apila los elementos verticalmente */
+    justify-content: flex-start; /* Alinea los elementos en la parte superior */
+    align-items: center; /* Centra los elementos horizontalmente */
+    padding-top: 100px; /* Espacio en la parte superior */
+    padding: 50px 20px; /* Padding interno */
     background-color: #f5f5f5;
-    height: auto; /* Ajusta la altura para que ocupe lo necesario */
-    min-height: 100vh; /* Asegura que siempre ocupe al menos el 100% de la pantalla */
+    height: auto; /* Altura flexible */
+    min-height: 100vh; /* Altura mínima de la ventana */
     background: 
         linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
         url("../images/moto.jpg");
     background-size: cover;
     background-position: center 20%;
+    overflow: visible; /* Asegura que el contenido no se recorte */
+}
+.hero3 {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    padding-top: 100px;
+    padding: 50px 20px;
+    background-color: #f5f5f5;
+    height: auto;
+    min-height: 50vh;
+    background-size: cover;
+    background-position: center 20%;
+    overflow: visible;
+    position: relative;
+    z-index: 0;
+}
+
+/* Asegura que el carrusel herede la altura real de .hero3 */
+#backgroundCarousel {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%; /* Igual a .hero3 */
+    min-height: 50vh; /* Asegura que no sea más pequeño */
+    z-index: 0;
+}
+
+/* Garantiza que el carrusel se ajuste al tamaño del contenedor */
+.carousel-inner {
+    width: 100%;
+    height: 100%;
+}
+
+/* Cada slide del carrusel debe ajustarse completamente */
+.carousel-item {
+    width: 100%;
+    height: 100%;
+}
+
+/* Ajustar imágenes al 100% del carrusel sin distorsión */
+.carousel-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Evita que se deformen */
+    object-position: center 20%; /* Ajusta la alineación */
+}
+
+
+/* Overlay oscuro para mejorar la legibilidad del contenido */
+.hero3::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5));
+    z-index: 0;
+}
+
+.hero2 {
+    display: flex;
+    flex-direction: column; /* Apila los elementos verticalmente */
+    justify-content: flex-start; /* Alinea los elementos en la parte superior */
+    align-items: center; /* Centra los elementos horizontalmente */
+    padding-top: 100px; /* Espacio en la parte superior */
+    padding: 50px 20px; /* Padding interno */
+    background-color: #f5f5f5;
+    height: auto; /* Altura flexible */
+    min-height: 100vh; /* Altura mínima de la ventana */
+    background: 
+        linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
+        url("../images/bmw.jpg");
+    background-size: cover;
+    background-position: center 20%;
+    overflow: visible; /* Asegura que el contenido no se recorte */
 }
 
 /*.hero {
@@ -322,19 +616,24 @@ header {
 
 .h2-sub {
     margin-top: 20vh;
-    font-size: 3rem;
+    font-size: clamp(1.5rem, 6vw, 3rem); /* Tamaño de fuente dinámico */
     font-family: 'Poppins', sans-serif;
     color: #3bcc75;
     font-weight: 600;
-    line-height: .4;
+    line-height: 1.2; /* Ajusta el line-height para mejor legibilidad */
     display: flex;
     justify-content: center; /* Centra los elementos dentro del h2 */
     align-items: center; /* Alinea el contenido verticalmente */
+    white-space: nowrap; /* Evita que el texto se divida en varias líneas */
+    
+    text-overflow: ellipsis; /* Añade puntos suspensivos (...) si el texto no cabe */
+    max-width: 100%; /* Limita el ancho máximo del contenedor */
+    padding: 0 20px; /* Añade un padding para evitar que el texto toque los bordes */
 }
 
 .fil {
-    text-transform: uppercase;
-    font-size: 3rem;
+     text-transform: uppercase;
+     font-size: inherit; /* Hereda el tamaño de fuente de .h2-sub */
 }
 
 .head {
@@ -369,7 +668,7 @@ header {
     text-transform: uppercase;
     letter-spacing: 2px;
     margin-right: -2px;
-    z-index: 2;
+    z-index: auto;
 }
 
 .cta-btn {
@@ -429,7 +728,9 @@ header {
 /*menu*/
 
 .taste {
-    background: url("../images/taste.jpg") center no-repeat;
+    background: 
+    linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
+    url("../images/calendario_moto.jpg") center no-repeat;
     background-size: cover;
 }
 
@@ -454,7 +755,9 @@ header {
 }
 
 .pb {
-    background: url("../images/mesa.jpg") center no-repeat;
+    background:
+    linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
+     url("../images/personaliza.jpg") center no-repeat;
     background-size: cover;
 }
 
@@ -571,9 +874,7 @@ footer {
         margin-right: 0;
     }
 
-    .nav-link {
-        font-size: 1.3rem;
-    }
+    
 
     .active {
         position: relative;
@@ -742,7 +1043,8 @@ footer {
 /* ---------------FIN FILTRO MES Y DIA--------------- */
 /* Estilos para Servicios */
 .services-section {
-    background: #f8f9fa;
+    margin-top: 80px;
+    background: transparent !important;
 }
 
 .service-card {
@@ -750,19 +1052,58 @@ footer {
     border-radius: 15px;
     transition: all 0.3s ease;
     opacity: 0;
-    transform: translateY(30px);
+    transition: all 0.4s ease;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
 }
 
 .service-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+    transform: translateY(-15px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3) !important;
 }
-
+.service-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(59, 204, 117, 0.1), rgba(59, 204, 117, 0.2));
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+.service-card:hover::before {
+    opacity: 1;
+}
 .service-card .card-body {
     padding: 2rem;
     text-align: center;
 }
-
+  /* Efecto de zoom en el icono */
+  .service-card:hover .fa-3x {
+    transform: scale(1.2) rotate(5deg);
+    color: #3bcc75 !important;
+}
+.service-card .fa-3x {
+    transition: all 0.4s ease;
+}
+/* Efecto de resaltado del título */
+.service-card:hover .card-title {
+    color: #3bcc75;
+    transform: translateY(-5px);
+}
+.service-card .card-title {
+    transition: all 0.3s ease;
+}
+  /* Efecto de brillo en el botón */
+  .service-card:hover .cta-btn {
+    background-color: #3bcc75;
+    color: white;
+    box-shadow: 0 5px 15px rgba(59, 204, 117, 0.4);
+}
 .service-card .card-title {
     color: #252525;
     font-weight: 700;
@@ -781,7 +1122,8 @@ footer {
 }
 
 /* Animaciones */
-@keyframes fadeInUp {
+ /* Animación de entrada para las tarjetas */
+ @keyframes fadeInUp {
     from {
         opacity: 0;
         transform: translateY(30px);
@@ -794,15 +1136,16 @@ footer {
 
 .service-card {
     animation: fadeInUp 0.6s ease forwards;
+    opacity: 0;
 }
 
-/* Retrasos para animaciones escalonadas */
-.service-card:nth-child(1) { animation-delay: 0.2s; }
-.service-card:nth-child(2) { animation-delay: 0.4s; }
-.service-card:nth-child(3) { animation-delay: 0.6s; }
-.service-card:nth-child(4) { animation-delay: 0.8s; }
-.service-card:nth-child(5) { animation-delay: 1.0s; }
-.service-card:nth-child(6) { animation-delay: 1.2s; }
+ /* Retrasos para animaciones escalonadas */
+.service-card:nth-child(1) { animation-delay: 0.1s; }
+.service-card:nth-child(2) { animation-delay: 0.2s; }
+.service-card:nth-child(3) { animation-delay: 0.3s; }
+.service-card:nth-child(4) { animation-delay: 0.4s; }
+.service-card:nth-child(5) { animation-delay: 0.5s; }
+.service-card:nth-child(6) { animation-delay: 0.6s; }
 
 /* Responsive */
 @media (max-width: 768px) {
@@ -914,3 +1257,4 @@ footer {
         justify-content: flex-end; 
     }
 }
+

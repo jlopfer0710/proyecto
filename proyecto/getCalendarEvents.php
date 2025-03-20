@@ -3,7 +3,7 @@
 header('Content-Type: application/json');
 
 // Conectar a la base de datos
-$conexion = mysqli_connect("localhost", "admin", "admin", "MotorClick_DB","3307");
+$conexion = mysqli_connect("localhost", "jorge", "KXiZ4xzfMclSLKv", "jorge");
 if (mysqli_connect_errno()) {
     echo json_encode([]);
     exit;

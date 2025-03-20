@@ -3,15 +3,13 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1);
 session_start();
 
-
-
 // Conexión a la base de datos
 $servername = "localhost";
-$username = "admin";
-$password = "admin";
-$dbname = "MotorClick_DB";
+$username = "jorge";
+$password = "KXiZ4xzfMclSLKv";
+$dbname = "jorge";
 
-$conn = new mysqli($servername, $username, $password, $dbname,"3307");
+$conn = mysqli_connect($servername, $username, $password, $dbname);
 if ($conn->connect_error) {
     die("Conexión fallida: " . $conn->connect_error);
 }
@@ -24,13 +22,20 @@ if (!isset($_SESSION['usuario']['id']) || !isset($_SESSION['usuario'])) {
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Datos del usuario
-    $usuario_id     = $_SESSION['usuario']['id'];  // usa user_id en lugar de id
+    $usuario_id = $_SESSION['usuario']['id'];  // usa user_id en lugar de id
     $nombre_usuario = $_SESSION['usuario']['usuario'];
     
     // Recibir datos del formulario
     $fecha  = $_POST['fecha'];    // Formato: YYYY-MM-DD
     $hora   = $_POST['hora'];     // Formato: HH:MM:SS
     $motivo = $_POST['motivo'];
+    
+    // Validar que la fecha no sea pasada
+    if (strtotime($fecha) < strtotime(date("Y-m-d"))) {
+        echo json_encode(["status" => "error", "message" => "No se pueden reservar citas en fechas pasadas"]);
+        exit;
+    }
+    
     // Suponemos que se usa un servicio fijo (por ejemplo, id = 1)
     $servicio_id = 1;
 

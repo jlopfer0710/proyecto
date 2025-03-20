@@ -39,7 +39,7 @@ ALTER TABLE reservas AUTO_INCREMENT = 1;/*sentencia para reiniciar el contador d
 CREATE USER `admin` IDENTIFIED BY 'admin';
 GRANT ALL ON `MotorClick_DB`.* TO `admin`;
 INSERT INTO servicios (nombre, descripcion, duracion, precio)
-VALUES ('Revision completa', 'Se realizara una revision completa del vehiculo', '1h', '120');
-
+VALUES ('Revision completa', 'Se realizara una revision completa del vehiculo', '1', '120');
+ALTER TABLE Usuarios AUTO_INCREMENT =1;
 ALTER TABLE reservas ADD localizador VARCHAR(50) AFTER hora;
 mysql -u usuario -p MotorClick_DB
